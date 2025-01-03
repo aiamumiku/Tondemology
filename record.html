@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>アーカイブされたトンデモロジー</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <!-- Swiper.js CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+<style>
+
+body{
+background-image: linear-gradient(0deg, transparent 59px, #333 60px), linear-gradient(90deg,  transparent 59px, #333 60px);
+background-size: 60px 60px;
+}
+/*
+header {
+
+display: flex;
+
+justify-content: center;
+
+align-items: center;
+
+gap: 75rem;
+
+height: 18rem;
+
+background: #ffffff;
+
+}*/
+
+  h1 {
+    font-size: 3.5rem;  
+
+    display: flex;
+  
+    justify-content: center;
+    
+    align-items: center;
+    margin-top: 100px ;
+    margin-bottom: 160px;
+  }
+
+  .swiper-container {
+    width: 100%;
+    max-width: 800px;
+    margin: auto;
+  }
+
+  .swiper-button-next,
+.swiper-button-prev {
+  color: black; /* ボタンの色を黒に設定 */
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  color: #333; /* ホバー時の色を少し薄い黒に設定 */
+}
+  
+  .image-text-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  .archive-image {
+    max-width: 150px;
+    height: auto;
+    border-radius: 5px;
+  }
+  
+  .archive-text {
+    font-size: 16px;
+    font-weight: bold;
+    color: #000000;
+    text-align: center;
+    max-width: 300px;
+  }
+  
+  .entry-date {
+    font-size: 12px;
+    color: #666;
+    margin-top: 10px;
+  }
+  
+  
+
+  </style>
+</head>
+<body>
+    <header><h1>Tondemology Report </h1></header>
+
+  <!-- Swiper Container -->
+  <div class="swiper-container">
+    <div class="swiper-wrapper" id="archive-container"></div>
+    <!-- Navigation buttons -->
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+  </div>
+
+  <!-- Swiper.js JavaScript -->
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+  <script>
+    // アーカイブを localStorage から取得
+    const archive = JSON.parse(localStorage.getItem('archive')) || [];
+
+    // アーカイブを表示する
+    const container = document.getElementById('archive-container');
+    archive.forEach(entry => {
+      const slide = document.createElement('div');
+      slide.classList.add('swiper-slide');
+
+      // アーカイブエントリーの構造
+      slide.innerHTML = `
+        <div class="image-text-container">
+          <img class="archive-image" src="${entry.image1}" alt="画像1">
+          <p class="archive-text">${entry.tondemology}</p>
+          <img class="archive-image" src="${entry.image2}" alt="画像2">
+        </div>
+        <p class="entry-date">${new Date(entry.date).toLocaleString()}</p>
+      `;
+
+      container.appendChild(slide);
+    });
+
+    // Swiperの初期化
+    const swiper = new Swiper('.swiper-container', {
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev'
+      },
+      loop: true,
+      spaceBetween: 30
+    });
+  </script>
+</body>
+</html>
